@@ -95,18 +95,24 @@ fun ConverterContent(
             ) {
                 Column {
                     CurrencyField(
-                        currencies = listOf("USD, EUR, JPY, CAD, GBP"),
-                        selectedCurrency = "BRL",
-                        currencyAmount = "",
-                        onCurrencySelected = { },
-                        onCurrencyAmountChanged = {},
+                        currencies = formState.fromCurrenciesList,
+                        selectedCurrency = formState.fromCurrencySelected,
+                        currencyAmount = formState.fromCurrencyAmount,
+                        onCurrencySelected = {
+                            onFormEvent(ConverterFormEvent.OnFromCurrencySelected(it))
+                        },
+                        onCurrencyAmountChanged = {
+                            onFormEvent(ConverterFormEvent.OnFromCurrencyAmountChanged(it))
+                        },
                     )
 
                     CurrencyField(
-                        currencies = listOf("USD, EUR, JPY, CAD, GBP"),
-                        selectedCurrency = "USD",
-                        currencyAmount = "",
-                        onCurrencySelected = { },
+                        currencies = formState.toCurrenciesList,
+                        selectedCurrency = formState.toCurrencySelected,
+                        currencyAmount = formState.toCurrencyAmount,
+                        onCurrencySelected = {
+                            onFormEvent(ConverterFormEvent.OnToCurrencySelected(it))
+                        },
                         onCurrencyAmountChanged = {},
                         modifier = Modifier.padding(top = 8.dp)
                     )
@@ -137,7 +143,12 @@ fun ConverterContent(
 private fun ConverterContentPreview() {
     CurrencyConverterTheme {
         ConverterContent(
-            formState = ConverterFormState(),
+            formState = ConverterFormState(
+                fromCurrenciesList = listOf("BRL", "USD", "EUR"),
+                toCurrenciesList = listOf("USD", "BRL", "EUR"),
+                fromCurrencySelected = "BRL",
+                toCurrencySelected = "USD"
+            ),
             onFormEvent = {}
         )
     }

@@ -18,8 +18,8 @@ class ConverterViewModel : ViewModel() {
             state.copy(
                 fromCurrenciesList = listOf("BRL", "USD", "EUR"),
                 toCurrenciesList = listOf("USD", "BRL", "EUR"),
-                fromCurrencyAmount = "BRL",
-                toCurrencyAmount = "USD"
+                fromCurrencySelected = "BRL",
+                toCurrencySelected = "USD"
             )
         }
     }
