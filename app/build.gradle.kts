@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    kotlin("plugin.serialization").version("2.2.21") // mesma versão do kotlin
 }
 
 android {
@@ -19,6 +20,7 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
+
 
     buildTypes {
         release {
@@ -48,9 +50,25 @@ dependencies {
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.ui.graphics)
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.9.4")
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
+
+    // VIEWMODEL
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+
+    // KTOR
+    //ktor core, configuracoes basicas do ktor
+    implementation(libs.ktor.client.core)
+    //ktor okhttp, que vai ser o protocolo que vamos usar, mas poderia ser websocket tambem como exemplo
+    implementation(libs.ktor.client.okhttp)
+    //ktor loggin para melhorar a visualizacao no logcat
+    implementation(libs.ktor.client.logging)
+    //kton content negoation para podermos receber json e fazer o parse para classes kotlin
+    implementation(libs.ktor.client.content.negotiation)
+    //ktor serialization para podermos enviar e receber json
+    implementation(libs.ktor.serialization.kotlinx.json)
+
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
