@@ -11,8 +11,11 @@ import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.BasicAlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -21,6 +24,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -32,18 +36,22 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.currencyconverter.R
+import com.example.currencyconverter.core.UiState
+import com.example.currencyconverter.ui.components.dialogs.ErrorDialog
 import com.example.currencyconverter.ui.feature.converter.model.ConverterFormEvent
 import com.example.currencyconverter.ui.feature.converter.model.ConverterFormState
 import com.example.currencyconverter.ui.theme.CurrencyConverterTheme
 
 @Composable
 fun ConverterScreen() {
-
     val viewModel = viewModel<ConverterViewModel>()
+
     val formState by viewModel.formState.collectAsStateWithLifecycle()
+    val conversionState by viewModel.conversionState.collectAsStateWithLifecycle()
 
     ConverterContent(
         formState = formState,
+        conversionState = conversionState,
         onFormEvent = viewModel::onFormEvent
     )
 }
@@ -52,6 +60,7 @@ fun ConverterScreen() {
 @Composable
 fun ConverterContent(
     formState: ConverterFormState,
+    conversionState: UiState,
     onFormEvent: (ConverterFormEvent) -> Unit
 ) {
     Scaffold(
@@ -133,6 +142,35 @@ fun ConverterContent(
                     )
                 }
             }
+
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 32.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                when (conversionState) {
+                    UiState.Idle -> Unit
+                    UiState.Loading -> {
+                        CircularProgressIndicator()
+                    }
+
+                    UiState.Success -> {
+                        Text(text = "Conversion Success")
+                    }
+
+                    is UiState.Error -> {
+                        BasicAlertDialog(
+                            onDismissRequest = { }
+                        ) {
+                            ErrorDialog(
+                                message = conversionState.message,
+                                onConfirm = { }
+                            )
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -149,6 +187,7 @@ private fun ConverterContentPreview() {
                 fromCurrencySelected = "BRL",
                 toCurrencySelected = "USD"
             ),
+            conversionState = UiState.Idle,
             onFormEvent = {}
         )
     }
