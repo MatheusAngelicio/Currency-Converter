@@ -3,6 +3,8 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     kotlin("plugin.serialization").version("2.2.21") // mesma versão do kotlin
+    id("com.google.dagger.hilt.android")
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -67,6 +69,9 @@ dependencies {
     implementation(libs.ktor.client.content.negotiation)
     //ktor serialization para podermos enviar e receber json
     implementation(libs.ktor.serialization.kotlinx.json)
+
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.android.compiler)
 
 
     testImplementation(libs.junit)
