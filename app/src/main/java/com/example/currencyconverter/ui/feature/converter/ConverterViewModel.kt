@@ -78,11 +78,11 @@ class ConverterViewModel @Inject constructor(
                     fromAmount
                 ).fold(
                     // Ja que estou usando "RESULT", com o metodo "fold" consigo recuperar o valor de sucesso, ou valor de erro se caiu no erro la no meu repository
-                    onSuccess = {
+                    onSuccess = { result ->
 
                         // autalizo o formulario la na UI com o valor convertido
                         _formState.update {
-                            it.copy(toCurrencyAmount = it.toCurrencyAmount)
+                            it.copy(toCurrencyAmount = result.conversionResult)
                         }
 
                         // atualizo o estado da minha variavel de requisicao passando que deu sucesso
