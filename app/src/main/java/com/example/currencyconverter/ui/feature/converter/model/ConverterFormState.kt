@@ -7,5 +7,4 @@ data class ConverterFormState(
     val toCurrencySelected: String = "",
     val fromCurrencyAmount: String = "",
     val toCurrencyAmount: String = "",
-
-    )
+)

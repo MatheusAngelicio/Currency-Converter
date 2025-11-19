@@ -71,7 +71,9 @@ fun ConverterContent(
                     .padding(16.dp),
                 shape = MaterialTheme.shapes.medium,
                 contentPadding = PaddingValues(vertical = 16.dp),
-                onClick = {},
+                onClick = {
+                    onFormEvent(ConverterFormEvent.SendConverterFormEvent)
+                },
             ) {
                 Text(text = "Currency Converter")
             }
