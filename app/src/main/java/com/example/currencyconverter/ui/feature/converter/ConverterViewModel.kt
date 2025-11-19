@@ -1,18 +1,20 @@
 package com.example.currencyconverter.ui.feature.converter
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.currencyconverter.core.UiState
 import com.example.currencyconverter.domain.repository.CurrencyRepository
 import com.example.currencyconverter.ui.feature.converter.model.ConverterFormEvent
 import com.example.currencyconverter.ui.feature.converter.model.ConverterFormState
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ConverterViewModel(
+@HiltViewModel
+class ConverterViewModel @Inject constructor(
     private val currencyRepository: CurrencyRepository
 ) : ViewModel() {
 

@@ -2,7 +2,7 @@ package com.example.currencyconverter.domain.repository
 
 import com.example.currencyconverter.domain.model.CurrencyConversion
 
-interface CurrencyRepository {
+interface  CurrencyRepository {
 
     suspend fun convertCurrency(
         fromCurrency: String,

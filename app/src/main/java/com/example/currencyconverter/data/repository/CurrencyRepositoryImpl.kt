@@ -3,8 +3,9 @@ package com.example.currencyconverter.data.repository
 import com.example.currencyconverter.data.network.KtorClient
 import com.example.currencyconverter.domain.model.CurrencyConversion
 import com.example.currencyconverter.domain.repository.CurrencyRepository
+import javax.inject.Inject
 
-class CurrencyRepositoryImpl(
+class CurrencyRepositoryImpl @Inject constructor(
     private val ktorClient: KtorClient
 ) : CurrencyRepository {
 
