@@ -55,8 +55,15 @@ class ConverterViewModel @Inject constructor(
                 }
             }
 
-            ConverterFormEvent.SendConverterFormEvent -> {
+            is ConverterFormEvent.SendConverterFormEvent -> {
                 convertCurrency()
+            }
+
+            is ConverterFormEvent.OnCloseDialogError -> {
+                _conversionState.update {
+                    UiState.Idle
+                }
+                clearFields()
             }
         }
     }
@@ -103,8 +110,12 @@ class ConverterViewModel @Inject constructor(
                     UiState.Error("Invalid input")
                 }
             }
+        }
+    }
 
-
+    private fun clearFields() {
+        _formState.update { state ->
+            state.copy(fromCurrencyAmount = "0", toCurrencyAmount = "0")
         }
     }
 }

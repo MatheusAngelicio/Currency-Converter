@@ -26,6 +26,7 @@ fun CurrencyField(
     currencyAmount: String,
     onCurrencySelected: (String) -> Unit,
     onCurrencyAmountChanged: (String) -> Unit,
+    isEnable: Boolean = true,
     modifier: Modifier = Modifier
 ) {
     Surface(
@@ -47,6 +48,7 @@ fun CurrencyField(
                 onValueChange = onCurrencyAmountChanged,
                 modifier = Modifier.weight(1f),
                 singleLine = true,
+                enabled = isEnable,
                 textStyle = MaterialTheme.typography.titleLarge.copy(
                     fontWeight = FontWeight.Bold,
                     textAlign = TextAlign.End
@@ -65,6 +67,7 @@ fun CurrencyField(
                     keyboardType = KeyboardType.Decimal
                 ),
                 colors = OutlinedTextFieldDefaults.colors(
+                    disabledBorderColor = Color.Transparent,
                     focusedBorderColor = Color.Transparent,
                     unfocusedBorderColor = Color.Transparent,
                     errorBorderColor = Color.Transparent,
@@ -84,7 +87,9 @@ private fun CurrencyFieldPreview() {
             selectedCurrency = "USD",
             currencyAmount = "",
             onCurrencySelected = {},
-            onCurrencyAmountChanged = {}
+            onCurrencyAmountChanged = {},
+            isEnable = false
+
         )
     }
 }

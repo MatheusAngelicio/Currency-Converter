@@ -5,6 +5,6 @@ data class ConverterFormState(
     val toCurrenciesList: List<String> = emptyList(),
     val fromCurrencySelected: String = "",
     val toCurrencySelected: String = "",
-    val fromCurrencyAmount: String = "",
-    val toCurrencyAmount: String = "",
+    val fromCurrencyAmount: String = "0",
+    val toCurrencyAmount: String = "0",
 )

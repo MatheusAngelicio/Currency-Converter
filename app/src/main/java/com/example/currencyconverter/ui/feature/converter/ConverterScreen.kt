@@ -125,6 +125,7 @@ fun ConverterContent(
                             onFormEvent(ConverterFormEvent.OnToCurrencySelected(it))
                         },
                         onCurrencyAmountChanged = {},
+                        isEnable = false,
                         modifier = Modifier.padding(top = 8.dp)
                     )
                 }
@@ -162,15 +163,20 @@ fun ConverterContent(
                     }
 
                     is UiState.Error -> {
+                        val closeEvent = {
+                            onFormEvent(ConverterFormEvent.OnCloseDialogError)
+                        }
+
                         BasicAlertDialog(
-                            onDismissRequest = { }
+                            onDismissRequest = closeEvent
                         ) {
                             ErrorDialog(
                                 message = conversionState.message,
-                                onConfirm = { }
+                                onConfirm = closeEvent
                             )
                         }
                     }
+
                 }
             }
         }

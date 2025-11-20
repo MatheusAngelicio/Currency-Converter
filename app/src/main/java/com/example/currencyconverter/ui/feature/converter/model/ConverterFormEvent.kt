@@ -5,6 +5,7 @@ sealed interface ConverterFormEvent {
     data class OnToCurrencySelected(val currency: String) : ConverterFormEvent
     data class OnFromCurrencyAmountChanged(val amount: String) : ConverterFormEvent
     data object SendConverterFormEvent : ConverterFormEvent
+    data object OnCloseDialogError : ConverterFormEvent
 }
 
 
